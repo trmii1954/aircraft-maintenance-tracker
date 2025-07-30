@@ -1,0 +1,49 @@
+usage: project.py [-h] [-k make model serial] [-t date hobbs flight]
+                  [-i manufacture_date] [-z] [-a system_name]
+                  [-b system:subsystem] [--offset OFFSET] [-v quantity units]
+                  [-r {all,configuration,maintenance,log}] [-s SHEET] [-u]
+                  [-m system:subsystem action:note]
+                  registration folder
+
+CLI to Manage and Report Airplane Airworthiness
+
+positional arguments:
+  registration          The FAA N-number of the Airplane
+  folder                The folder to store planes and reports
+
+options:
+  -h, --help            show this help message and exit
+  -k make model serial, --make make model serial
+                        make model serial option for initialization, config and maintenance
+  -t date hobbs flight, --time date hobbs flight
+                        when did the action happen
+
+Configuration Commands
+ subsequent installations can be made with  --maintenance:
+  -i manufacture_date   Plane and File initialization. Manufacture date.
+                        Hobbs and Flight Hours default to 0.0 Use with --make.
+                        DELETES ALL PRIOR CONFIG.  Use -z to modify times.
+  -z, --day_zero        set Airplane day zero date, hobbs and flight hours (purchase). Use with --time
+  -a system_name, --addsystem system_name
+                        add major system, e.g. engine_left. Use with --make
+  -b system:subsystem, --addsubsystem system:subsystem
+                        add subsystem to a major system. Use with --make.
+  --offset OFFSET       prior time-in-service when installed defaults to 0.0
+  -v quantity units, --interval quantity units
+                        set maintenance interval for system or subsystem
+                          required for due report
+                          units are calendar_months, years or flight_hours
+
+Report Options:
+  -r {all,configuration,maintenance,log}, --report {all,configuration,maintenance,log}
+                        generate report(s)
+  -s SHEET, --sheet SHEET
+                        set google sheet-ID command
+  -u, --update          update hobbs and flight hours from google sheet log
+
+Maintenance Options:
+  -m system:subsystem action:note, --maintenance system:subsystem action:note
+                        action with note
+                            must specify --time and --make
+                            optional --offset and --interval
+                            actions: install,replace,interval,repair,routine,troubleshoot

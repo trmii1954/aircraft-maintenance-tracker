@@ -1,0 +1,30 @@
+python project.py N527W planes -i  2000-07-22 --make Mooney M20R 224
+
+python project.py N527W planes -a engine --make TCM IO-550 10999 -v 12 calendar_months
+
+python project.py N527W planes -a airframe --make Mooney M20R 227
+
+python project.py N527W planes -b engine:magneto_left --make Bendix Slick-L 789Y5 -v 500 flight_hours
+
+
+python project.py N527W planes -b engine:magneto_right --make Bendix Slick-R 789Y885 -v 500 flight_hours
+python project.py N527W planes -m engine:magneto_right replace:remanufactured -t 2022-01-01 0.0 0.0 -k NewCO FastStart 98765
+
+python project.py N527W planes -b engine:oil --make Phillips X20W50 n/a -v 30 flight_hours
+python project.py N527W planes -m engine:oil interval -t 2022-01-01 500.0 400.0
+python project.py N527W planes -m engine:oil interval -t 2023-01-01 540.0 431.9
+python project.py N527W planes -m engine:oil interval -t 2022-01-01 500.0 400.0
+
+
+
+
+
+python project.py N527W planes -b airframe:tire_main_left --make Michelin x500 789hh7
+python project.py N527W planes -m airframe:tire_main_left replace:new_tire -t 2002-06-06 541.2 399.9 -k Goodyear Z99 123245
+
+python project.py N527W planes -m airframe:tire_main_left replace:new_tire -t 2003-01-01 541.2 399.9 -k Goodyear Z99 123245
+
+python project.py N527W planes -r all
+
+
+
