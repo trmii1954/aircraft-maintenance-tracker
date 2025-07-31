@@ -81,6 +81,8 @@ TODO
 * Adopt json instead of pickle
 * BUG - when to use interval? maintenance action to set interval?
 * BUG - time in service vs inspection interval, remove overlap
+* allow maintenance interval to be updated
+* time/hours reamaining does not properly show negative!!!
 
 
 

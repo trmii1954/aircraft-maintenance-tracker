@@ -41,7 +41,7 @@ python project.py  N485DV planes/  --maintenance airframe:caps_cutters replace -
 
 python project.py  N485DV planes/  --addsubsystem airframe:battery_elt --make Cirrus 452-6504-1 not_available -v  6 years
 python project.py  N485DV planes/  --maintenance airframe:battery_elt replace -t 2023-06-02 1729.7 1420.6 -k Cirrus A3-06-2883 tbd
-python project.py  N485DV planes/  --addsubsystem airframe:elt --make ACR ELT-1000 251-10681
+python project.py  N485DV planes/  --addsubsystem airframe:elt --make ACR ELT-1000 251-10681 --interval 12 calendar_months
 python project.py  N485DV planes/  --maintenance airframe:elt "replace:replace failed elt" --make Artex ELT345 317-12511 -t 2023-06-02 1729.7 1420.6
 
 python project.py  N485DV planes/  --addsubsystem airframe:engine_mount --make Cirrus not_available not_available -v  500 flight_hours
@@ -152,6 +152,8 @@ python project.py  N485DV planes/  --maintenance engine:oil "interval:7 QT x/c 2
 python project.py  N485DV planes/  --maintenance airframe:co_detector replace -t 2024-07-11 1977.4 1610.1 -k cirrus 452-201-010 SN119031
 python project.py  N485DV planes/  --maintenance airframe:nosestrut interval:inspection -t 2024-07-11 1977.4 1610.1
 python project.py N485DV planes --maintenance airframe:oxygen interval -t 2024-07-11 1977.4 1610.1
+
+python project.py N485DV planes --addsubsystem engine:induction_filter --make Cirrus tbd tbd --interval 12 calendar_months
 python project.py N485DV planes -m engine:induction_filter "replace:during annual" -t 2024-07-11 1977.4 1610.1 --make tbd "P/N BA-42" n/a
 
 
@@ -182,6 +184,43 @@ python project.py  N485DV planes/  --maintenance engine:oil "interval:7 QT x/c 2
 
 python project.py N485DV planes --addsubsystem engine:preheater --make Tannis tbd tbd
 python project.py N485DV planes --maintenance engine:preheater "repair:replaced preheat indication LED (airframe log)" -t 2024-03-27 1918.4 1570.2
+
+python project.py  N485DV planes/  --maintenance avionics:pitotstatic "interval:FAR 91.411" -t 2025-05-09 2111.6 1705.8
+
+python project.py  N485DV planes/  --addsubsystem avionics:transponder --make Garmin Perspective+ 4473 -v 24 calendar_months
+python project.py  N485DV planes/  --maintenance avionics:transponder "interval:FAR 91.413" -t 2025-05-20 2113.8 1707.3
+
+python project.py N485DV planes  -m avionics:servo_gsm86 interval:inspect -t 2025-05-20 2113.8 1707.3
+python project.py N485DV planes  -m avionics:servo_gmu44 interval:inspect -t 2025-05-20 2113.8 1707.3
+
+
+# entries from annual 2025-07-25 2134.4 1722.8
+python project.py N485DV planes/ --maintenance propeller interval:annual -t 2025-07-25 2134.4 1722.8
+python project.py N485DV planes/ --maintenance engine interval:annual -t 2025-07-25 2134.4 1722.8
+python project.py  N485DV planes/  --maintenance engine:oil "interval:7 QT x/c 20W/50, Tempest" -t 2025-07-25 2134.4 1722.8
+python project.py N485DV planes -m engine:induction_filter "replace:during annual" -t 2025-07-25 2134.4 1722.8 --make tbd tbd n/a
+
+python project.py N485DV planes -m engine:cylinder_1 routine:"compression 70" -t 2025-07-25 2134.4 1722.8
+python project.py N485DV planes -m engine:cylinder_2 routine:"compression 63" -t 2025-07-25 2134.4 1722.8
+python project.py N485DV planes -m engine:cylinder_3 routine:"compression 70" -t 2025-07-25 2134.4 1722.8
+python project.py N485DV planes -m engine:cylinder_4 routine:"compression 57" -t 2025-07-25 2134.4 1722.8
+python project.py N485DV planes -m engine:cylinder_5 routine:"compression 62" -t 2025-07-25 2134.4 1722.8
+python project.py N485DV planes -m engine:cylinder_6 routine:"compression 70" -t 2025-07-25 2134.4 1722.8
+
+python project.py N485DV planes -m engine routine:"cleaned and gapped plugs" -t 2025-07-25 2134.4 1722.8
+
+python project.py N485DV planes --addsubsystem engine:alternator_coupling --make TCM tbd tbd
+python project.py N485DV planes -m engine:alternator_coupling "routine:inspect IAW SB 11-3" -t 2025-07-25 2134.4 1722.8
+
+python project.py N485DV planes -m airframe "interval:annual" -t 2025-07-25 2134.4 1722.8
+python project.py N485DV planes -m airframe:elt "interval:inspect IAW FAR 91.207" -t 2025-07-25 2134.4 1722.8
+python project.py  N485DV planes/  --addsubsystem airframe:throttle --make Cirrus SR22-G6 tbd -v 1200 flight_hours
+python project.py N485DV planes -m airframe:throttle "replace:IAW AD-24-24-11" -t 2025-07-25 2134.4 1722.8 --make Cirrus 19181-001 tbd
+python project.py N485DV planes -m airframe:battery_essential "replace:both" -t 2025-07-25 2134.4 1722.8 --make Cirrus 50979-001 tbd
+python project.py  N485DV planes/  --maintenance airframe:tire_left replace -t 2025-07-25 2134.4 1722.8  -k Michelin "PN06-03083 15X6.0-6 TL/TT 6 PLY 160" tbd
+python project.py N485DV planes -m airframe "repair:L/H Main pant crack" -t 2025-07-25 2134.4 1722.8
+python project.py N485DV planes --maintenance airframe:oxygen interval:"ICA IAW 102NMAN003" -t 2025-07-25 2134.4 1722.8
+python project.py  N485DV planes/  --maintenance airframe:nosestrut interval:inspection -t 2025-07-25 2134.4 1722.8
 
 
 
