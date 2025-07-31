@@ -1,0 +1,42 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.venv/
+pip-log.txt
+pip-delete-this-directory.txt
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Project specific
+*.log
+*.tmp
+temp/
+
+# Add specific files you want to ignore below:
+# Aircraft data files (if sensitive)
+# planes/*.pkl
+# *.pkl
+
+# Command files (if they contain sensitive info)
+# *commands.txt
+
+# PDF reports
+*.pdf
