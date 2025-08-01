@@ -1,6 +1,7 @@
 from datetime import datetime, date
 from dateutil.relativedelta import relativedelta
 from dateutil.parser import isoparse
+import re
 
 
 class Subsystem:
@@ -153,23 +154,30 @@ class Subsystem:
                 age_s = f"{age:.1f}"
                 remaining_s = f"{remaining:.1f}"
                 due_in_at_s = f"{due_in_at:.1f}"
+
             case "calendar_months":
                 delta = int(self.maintenance_interval[0])
                 # age = date.today() - datetime.strptime(self.maintenance_date, "%Y-%m-%d").date()
-                age_s: str = self.years_days_age(self.interval_date)
+                age_s: str = self.years_days_age(self.interval_date, due_date=False)
                 due_in_at_s = datetime.strptime(
                     self.interval_date, "%Y-%m-%d"
                 ).date() + relativedelta(months=delta, day=31)
-                remaining_s = self.years_days_age(due_in_at_s.strftime("%Y-%m-%d"))
+                remaining_s = self.years_days_age(
+                    due_in_at_s.strftime("%Y-%m-%d"), due_date=True
+                )
+
             case "years":
                 delta = int(self.maintenance_interval[0])
                 # age = date.today() - datetime.strptime(self.maintenance_date, "%Y-%m-%d").date()
-                age_s: str = self.years_days_age(self.interval_date)
-                due_in_at_s = datetime.strptime(self.interval_date, "%Y-%m-%d").date() + relativedelta(years=delta)
-                remaining_s = self.years_days_age(due_in_at_s.strftime("%Y-%m-%d"))
+                age_s: str = self.years_days_age(self.interval_date, due_date=False)
+                due_in_at_s = datetime.strptime(
+                    self.interval_date, "%Y-%m-%d"
+                ).date() + relativedelta(years=delta)
+                remaining_s = self.years_days_age(
+                    due_in_at_s.strftime("%Y-%m-%d"), due_date=True
+                )
 
-
-        # force due and remaining strings to "" if no it=nterval
+        # force due and remaining strings to "" if no interval
         q, u = self.maintenance_interval
         if q == 0:
             q = ""
@@ -188,19 +196,29 @@ class Subsystem:
             due_in_at_s,
         ]
 
-    def years_days_age(self, relative_date) -> str:
+    def years_days_age(self, relative_date, due_date=False) -> str:
         """
         Calculate a date difference  in days between today and a given date.
+        If the relative date is not a due date, positive days are returned as such.  I.E. Age in years and days.
+        If the relative date is a due date, negative days indicate overdue and will be returned as negative/red.
 
         Parameters:
             relative date (str ISO 8601 date)
 
         Returns:
-            returns age string in years and days based on 365 day year
+            returns string in years and days based on 365 day year
+            negative for future relative dates, positive for past relative dates (i.e.how old)
         """
         age = date.today() - datetime.strptime(relative_date, "%Y-%m-%d").date()
         q, r = divmod(abs(age.days), 365)
-        if q==0:
+        if due_date:
+            if age.days > 0:  # over due date, make negative
+                q, r = -q, -r
+        else:
+            if age.days < 0:
+                q, r = -q, -r
+
+        if q == 0:
             return f"{r:3d} d"
         else:
             return f"{q:2d} y {r:3d} d"
