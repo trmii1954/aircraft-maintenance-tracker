@@ -1,4 +1,5 @@
 from datetime import datetime, timezone
+import re
 
 # from dateutil.relativedelta import relativedelta
 
@@ -311,12 +312,11 @@ def report_maintenance(major_system, flight_hours):
 
     # make a table for reportlab
     table = Table(t)
-    style = TableStyle(
-        [
-            (
-                "BACKGROUND",
-                (0, 0),
-                (-1, 0),
+    style_commands = [
+        (
+            "BACKGROUND",
+            (0, 0),
+            (-1, 0),
                 colors.Color(red=0.0, green=0.4, blue=0.8),
             ),  # Header row background
             ("TEXTCOLOR", (0, 0), (-1, 0), colors.whitesmoke),  # Header text color
@@ -331,7 +331,16 @@ def report_maintenance(major_system, flight_hours):
             ),  # Grid lines for the entire table
             ("ALIGN", (2, 0), (-1, -1), "RIGHT"),  # Align column 3 to the left
         ]
-    )
+    # Check each cell and add style commands
+    for row_idx, row in enumerate(t[1:], 1):  # Skip header
+        for col_idx, cell in enumerate(row):
+            if isinstance(cell, str) and re.search(r'-\d+ d|-\d+\.\d', cell):
+                # Make cells with negative values red
+                style_commands.append(('TEXTCOLOR', (col_idx, row_idx), (col_idx, row_idx), colors.red))
+  
+
+
+    style = TableStyle(style_commands)
     # Apply the style to the table
     table.setStyle(style)
 
@@ -365,12 +374,6 @@ def maintenance_table(system, flight_hours):
         "Remaining",
         "Due At/On",
     ]
-
-    #  # Process the table to add formatting
-    #     for row in table:
-    #         if len(row) > 5 and isinstance(row[5], str) and '-' in row[5]:
-    #             # Convert to Paragraph with red color
-    #             row[5] = Paragraph(f'<font color="red">{row[5]}</font>')
 
     return [hdr] + sorted_table
 
