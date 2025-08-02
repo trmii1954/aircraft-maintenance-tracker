@@ -137,7 +137,12 @@ python project.py  N485DV planes/  --maintenance engine:air_conditioner "routine
 
 python project.py  N485DV planes/  --maintenance engine:oil "interval:7 QT x/c 20W/50, Tempest" -t 2024-04-29 1943.7 1587.1
 
-python project.py  N485DV planes/  --maintenance engine "routine:compression 66-67-74-57-73-69" -t 2024-07-11 1977.4 1610.1
+python project.py N485DV planes -m engine:cylinder_1 routine:"compression 66" -t 2024-07-11 1977.4 1610.1
+python project.py N485DV planes -m engine:cylinder_2 routine:"compression 67" -t 2024-07-11 1977.4 1610.1
+python project.py N485DV planes -m engine:cylinder_3 routine:"compression 74" -t 2024-07-11 1977.4 1610.1
+python project.py N485DV planes -m engine:cylinder_4 routine:"compression 57" -t 2024-07-11 1977.4 1610.1
+python project.py N485DV planes -m engine:cylinder_5 routine:"compression 73" -t 2024-07-11 1977.4 1610.1
+python project.py N485DV planes -m engine:cylinder_6 routine:"compression 69" -t 2024-07-11 1977.4 1610.1
 
 python project.py N485DV planes --maintenance engine:cylinder_1 "routine:clean fuel injector"  -t 2023-03-30 1695.0 1391.0
 
@@ -222,6 +227,7 @@ python project.py N485DV planes -m airframe "repair:L/H Main pant crack" -t 2025
 python project.py N485DV planes --maintenance airframe:oxygen interval:"ICA IAW 102NMAN003" -t 2025-07-25 2134.4 1722.8
 python project.py  N485DV planes/  --maintenance airframe:nosestrut interval:inspection -t 2025-07-25 2134.4 1722.8
 
+python project.py  N485DV planes/  --maintenance propeller:propeller "routine:dress nicks" -t 2025-07-25 2134.4 1722.8
 
 
 python project.py N485DV planes  -r all
